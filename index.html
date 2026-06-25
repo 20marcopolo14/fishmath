@@ -15,10 +15,6 @@
       background: #0a0a1a;
       color: #fff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       min-height: 100vh;
       text-align: center;
     }
@@ -29,19 +25,42 @@
       text-transform: uppercase;
       color: #00eaff;
       text-shadow: 0 0 20px #00eaff, 0 0 40px #00eaff55;
+      padding-top: 3rem;
     }
 
-    p {
-      margin-top: 1.5rem;
-      font-size: 1.4rem;
-      color: #aaa;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
+    }
+
+    .game-card {
+      background: #11112a;
+      border: 1px solid #00eaff55;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: #fff;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <h1>My Arcade</h1>
-  <p>Games Coming Soon</p>
+  <div class="game-grid">
+    <a href="games/soccer-random/soccer-random.html" class="game-card">
+      <h2>Soccer Random</h2>
+    </a>
+    <a href="games/2048/index.html" class="game-card">
+      <h2>2048</h2>
+    </a>
+    <a href="games/elastic face/elasticface.html" class="game-card">
+      <h2>Elastic Face</h2>
+    </a>
+    <a href="games/10minutestilldawn/tenminutestilldawn.html" class="game-card">
+      <h2>10 Minutes Till Dawn</h2>
+    </a>
+  </div>
 </body>
 </html>
