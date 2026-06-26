@@ -30,19 +30,50 @@
 
     .game-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
       padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     .game-card {
       background: #11112a;
-      border: 1px solid #00eaff55;
-      border-radius: 8px;
-      padding: 1.5rem;
+      border: 2px solid #00eaff55;
+      border-radius: 12px;
+      overflow: hidden;
       text-decoration: none;
       color: #fff;
-      text-align: center;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .game-card:hover {
+      border-color: #00eaff;
+      transform: translateY(-8px);
+      box-shadow: 0 0 20px #00eaff55;
+    }
+
+    .game-image {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      background: #1a1a3a;
+    }
+
+    .game-info {
+      padding: 1rem;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .game-card h2 {
+      font-size: 1rem;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -50,79 +81,104 @@
   <h1>My Arcade</h1>
   <div class="game-grid">
     <a href="games/soccer-random/soccer-random.html" class="game-card">
-      <h2>Soccer Random</h2>
+      <img src="games/soccer-random/image1.jpg" alt="Soccer Random" class="game-image">
+      <div class="game-info"><h2>Soccer Random</h2></div>
     </a>
     <a href="games/2048/index.html" class="game-card">
-      <h2>2048</h2>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/2048_logo.svg" alt="2048" class="game-image">
+      <div class="game-info"><h2>2048</h2></div>
     </a>
     <a href="games/elastic face/elasticface.html" class="game-card">
-      <h2>Elastic Face</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvMTM3NDczMzcvNjQ0NDEyMDUucG5n/315x250%23c/D5b8Fy.png" alt="Elastic Face" class="game-image">
+      <div class="game-info"><h2>Elastic Face</h2></div>
     </a>
     <a href="games/10minutestilldawn/tenminutestilldawn.html" class="game-card">
-      <h2>10 Minutes Till Dawn</h2>
+      <img src="https://learn.edumain.net/thumbs/10-minutes-till-dawn.png" alt="10 Minutes Till Dawn" class="game-image">
+      <div class="game-info"><h2>10 Minutes Till Dawn</h2></div>
     </a>
     <a href="games/chicken-royal/chickenroyal.html" class="game-card">
-      <h2>Chicken Royal</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvMTU4MDQ0NDYvNzUxNTQwNDIucG5n/315x250%23c/Mv4y%2Bm.png" alt="Chicken Royal" class="game-image">
+      <div class="game-info"><h2>Chicken Royal</h2></div>
     </a>
     <a href="games/minecraft/minecraft.html" class="game-card">
-      <h2>Minecraft</h2>
+      <img src="https://www.minecraft.net/content/dam/minecraftnet/about/mco_desktop_banner_728x420.jpg" alt="Minecraft" class="game-image">
+      <div class="game-info"><h2>Minecraft</h2></div>
     </a>
     <a href="games/subway-surfers/subwaysurfers.html" class="game-card">
-      <h2>Subway Surfers</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvNTk4NjQ4LzI5NzA4MjUucG5n/315x250%23c/4hy4xv.png" alt="Subway Surfers" class="game-image">
+      <div class="game-info"><h2>Subway Surfers</h2></div>
     </a>
     <a href="games/slope/slope.html" class="game-card">
-      <h2>Slope</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvNDI1NDcyLzIxNDI3MTkucG5n/315x250%23c/Ag9R2Z.png" alt="Slope" class="game-image">
+      <div class="game-info"><h2>Slope</h2></div>
     </a>
     <a href="games/drift-boss/driftboss.html" class="game-card">
-      <h2>Drift Boss</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvNjk0NzI4LzM0MTc1NjQucG5n/315x250%23c/FI3aCK.png" alt="Drift Boss" class="game-image">
+      <div class="game-info"><h2>Drift Boss</h2></div>
     </a>
     <a href="games/apple-shooter/appleshooter.html" class="game-card">
-      <h2>Apple Shooter</h2>
+      <img src="https://learn.edumain.net/thumbs/apple-shooter.jpg" alt="Apple Shooter" class="game-image">
+      <div class="game-info"><h2>Apple Shooter</h2></div>
     </a>
     <a href="games/fnaf/fnaf.html" class="game-card">
-      <h2>FNAF</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvODEwNTIzLzQwNzA3MDIucG5n/315x250%23c/SHnGlx.png" alt="FNAF" class="game-image">
+      <div class="game-info"><h2>FNAF</h2></div>
     </a>
     <a href="games/fnaf-2/fnaf2.html" class="game-card">
-      <h2>FNAF 2</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvODEwNTIzLzQwNzA3MDIucG5n/315x250%23c/SHnGlx.png" alt="FNAF 2" class="game-image">
+      <div class="game-info"><h2>FNAF 2</h2></div>
     </a>
     <a href="games/basket-random/basketrandom.html" class="game-card">
-      <h2>Basket Random</h2>
+      <img src="https://learn.edumain.net/thumbs/basket-random.png" alt="Basket Random" class="game-image">
+      <div class="game-info"><h2>Basket Random</h2></div>
     </a>
     <a href="games/fluffy-jelly-cat/fluffyjellycat.html" class="game-card">
-      <h2>Fluffy Jelly Cat</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvMTk1OTUyOC8xMTU4MDcyOC5wbmc=/315x250%23c/HvuYYe.png" alt="Fluffy Jelly Cat" class="game-image">
+      <div class="game-info"><h2>Fluffy Jelly Cat</h2></div>
     </a>
     <a href="games/temple-run-2/templerun2.html" class="game-card">
-      <h2>Temple Run 2</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvMjI4MzUwLzExNTg2MzAwLmpwZw==/315x250%23c/uA9EyF.jpg" alt="Temple Run 2" class="game-image">
+      <div class="game-info"><h2>Temple Run 2</h2></div>
     </a>
     <a href="games/space-pest/spacepest.html" class="game-card">
-      <h2>Space Pest</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvMjI4MzUwLzExNTg2MzAwLmpwZw==/315x250%23c/uA9EyF.jpg" alt="Space Pest" class="game-image">
+      <div class="game-info"><h2>Space Pest</h2></div>
     </a>
     <a href="games/climb-over-it/climboverit.html" class="game-card">
-      <h2>Climb Over It</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvMjI4MzUwLzExNTg2MzAwLmpwZw==/315x250%23c/uA9EyF.jpg" alt="Climb Over It" class="game-image">
+      <div class="game-info"><h2>Climb Over It</h2></div>
     </a>
     <a href="games/cluster-rush/clusterrush.html" class="game-card">
-      <h2>Cluster Rush</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvMTk1OTUyOC8xMTU4MDcyOC5wbmc=/315x250%23c/HvuYYe.png" alt="Cluster Rush" class="game-image">
+      <div class="game-info"><h2>Cluster Rush</h2></div>
     </a>
     <a href="games/italian-brainrot-obby/italianbrainrotobby.html" class="game-card">
-      <h2>Italian Brainrot Obby</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvMTk1OTUyOC8xMTU4MDcyOC5wbmc=/315x250%23c/HvuYYe.png" alt="Italian Brainrot Obby" class="game-image">
+      <div class="game-info"><h2>Italian Brainrot Obby</h2></div>
     </a>
     <a href="games/veck-io/veckio.html" class="game-card">
-      <h2>Veck.io</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvMTk1OTUyOC8xMTU4MDcyOC5wbmc=/315x250%23c/HvuYYe.png" alt="Veck.io" class="game-image">
+      <div class="game-info"><h2>Veck.io</h2></div>
     </a>
     <a href="games/bacon-may-die/baconmaydie.html" class="game-card">
-      <h2>Bacon May Die</h2>
+      <img src="https://learn.edumain.net/thumbs/bacon-may-die.png" alt="Bacon May Die" class="game-image">
+      <div class="game-info"><h2>Bacon May Die</h2></div>
     </a>
     <a href="games/bloonstd-4/bloonstd4.html" class="game-card">
-      <h2>Bloons TD 4</h2>
+      <img src="https://learn.edumain.net/thumbs/bloons-td-4.jpg" alt="Bloons TD 4" class="game-image">
+      <div class="game-info"><h2>Bloons TD 4</h2></div>
     </a>
     <a href="games/blumgi-rocket/blumgirocket.html" class="game-card">
-      <h2>Blumgi Rocket</h2>
+      <img src="https://img.itch.zone/aW1hZ2UvMjI4MzUwLzExNTg2MzAwLmpwZw==/315x250%23c/uA9EyF.jpg" alt="Blumgi Rocket" class="game-image">
+      <div class="game-info"><h2>Blumgi Rocket</h2></div>
     </a>
     <a href="games/blumgi-racers/blumgiracers.html" class="game-card">
-      <h2>Blumgi Racers</h2>
+      <img src="https://learn.edumain.net/thumbs/blumgi-racers.jpg" alt="Blumgi Racers" class="game-image">
+      <div class="game-info"><h2>Blumgi Racers</h2></div>
     </a>
     <a href="games/baldis-basics/baldisbasics.html" class="game-card">
-      <h2>Baldi's Basics</h2>
+      <img src="https://learn.edumain.net/thumbs/baldis-basics.png" alt="Baldi's Basics" class="game-image">
+      <div class="game-info"><h2>Baldi's Basics</h2></div>
     </a>
   </div>
 </body>
