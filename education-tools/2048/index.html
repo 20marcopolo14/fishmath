@@ -15,8 +15,35 @@
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <style>
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      background: #00eaff;
+      color: #0a0a1a;
+      border: none;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(0, 234, 255, 0.5);
+      transition: all 0.3s ease;
+    }
+    .back-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(0, 234, 255, 0.8);
+    }
+  </style>
 </head>
 <body>
+  <a href="../../index.html" class="back-button">←</a>
   <div class="container">
     <div class="heading">
       <h1 class="title">2048</h1>
