@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="favicon/ai-image-generator-1782748387331.png">
   <title>My Arcade</title>
   <style>
     * {
@@ -75,12 +76,141 @@
       font-size: 1rem;
       font-weight: 600;
     }
+
+    /* Code Entry Modal Styles */
+    .code-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 26, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .code-modal.hidden {
+      display: none;
+    }
+
+    .code-box {
+      background: linear-gradient(135deg, #1a1a3a 0%, #11112a 100%);
+      border: 3px solid #00eaff;
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 0 40px #00eaff55, 0 0 80px #00eaff22;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .code-box h2 {
+      font-size: 2rem;
+      color: #00eaff;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px #00eaff;
+    }
+
+    .code-box p {
+      color: #aaa;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .code-input {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.5rem;
+      letter-spacing: 0.5rem;
+      text-align: center;
+      border: 2px solid #00eaff;
+      border-radius: 10px;
+      background: #0a0a1a;
+      color: #00eaff;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+    }
+
+    .code-input::placeholder {
+      color: #444;
+    }
+
+    .code-input:focus {
+      outline: none;
+      border-color: #00ff88;
+      box-shadow: 0 0 20px #00eaff55;
+    }
+
+    .code-submit {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: linear-gradient(135deg, #00eaff 0%, #00ff88 100%);
+      color: #0a0a1a;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .code-submit:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #00eaff;
+    }
+
+    .code-submit:active {
+      transform: scale(0.98);
+    }
+
+    .error-message {
+      color: #ff4444;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+      animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .main-content {
+      display: none;
+    }
+
+    .main-content.visible {
+      display: block;
+    }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2070292438423607"
      crossorigin="anonymous"></script>
 </head>
 <body>
-  <h1>My Arcade</h1>
+  <!-- Code Entry Modal -->
+  <div class="code-modal" id="codeModal">
+    <div class="code-box">
+      <h2>ACCESS CODE</h2>
+      <p>Enter the code to continue</p>
+      <input type="password" class="code-input" id="codeInput" placeholder="Enter code" maxlength="4">
+      <button class="code-submit" onclick="checkCode()">SUBMIT</button>
+      <div class="error-message" id="errorMessage">Incorrect code. Try again.</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" id="mainContent">
+    <h1>My Arcade</h1>
   <div class="game-grid">
     <a href="education-tools/soccer-random/soccer-random.html" class="game-card">
       <img src="education-tools/soccer-random/image1.jpg" alt="Soccer Random" class="game-image">
@@ -191,5 +321,43 @@
       <div class="game-info"><h2>There Is No Game</h2></div>
     </a>
   </div>
+  </div>
+
+  <script>
+    function checkCode() {
+      const input = document.getElementById('codeInput');
+      const correctCode = '2323';
+      const errorMessage = document.getElementById('errorMessage');
+      
+      if (input.value === correctCode) {
+        // Code is correct - hide modal and show main content
+        document.getElementById('codeModal').classList.add('hidden');
+        document.getElementById('mainContent').classList.add('visible');
+        errorMessage.classList.remove('show');
+      } else {
+        // Code is incorrect - show error message
+        errorMessage.classList.add('show');
+        input.value = '';
+        input.focus();
+        
+        // Remove shake animation after 0.5s to allow it to play again
+        setTimeout(() => {
+          errorMessage.classList.remove('show');
+        }, 500);
+      }
+    }
+
+    // Allow Enter key to submit code
+    document.getElementById('codeInput').addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        checkCode();
+      }
+    });
+
+    // Focus on the input when page loads
+    window.addEventListener('load', function() {
+      document.getElementById('codeInput').focus();
+    });
+  </script>
 </body>
 </html>
