@@ -192,11 +192,48 @@
     .main-content.visible {
       display: block;
     }
+
+    /* Rainbow Effect Styles */
+    @keyframes rainbow-bg {
+      0% { background-color: hsl(0, 100%, 50%); }
+      14% { background-color: hsl(45, 100%, 50%); }
+      28% { background-color: hsl(60, 100%, 50%); }
+      42% { background-color: hsl(120, 100%, 50%); }
+      57% { background-color: hsl(240, 100%, 50%); }
+      71% { background-color: hsl(270, 100%, 50%); }
+      85% { background-color: hsl(300, 100%, 50%); }
+      100% { background-color: hsl(0, 100%, 50%); }
+    }
+
+    @keyframes rainbow-text {
+      0% { color: hsl(0, 100%, 50%); }
+      14% { color: hsl(45, 100%, 50%); }
+      28% { color: hsl(60, 100%, 50%); }
+      42% { color: hsl(120, 100%, 50%); }
+      57% { color: hsl(240, 100%, 50%); }
+      71% { color: hsl(270, 100%, 50%); }
+      85% { color: hsl(300, 100%, 50%); }
+      100% { color: hsl(0, 100%, 50%); }
+    }
+
+    body.rainbow-mode {
+      animation: rainbow-bg 2s linear infinite;
+    }
+
+    body.rainbow-mode * {
+      animation: rainbow-text 2s linear infinite;
+      filter: brightness(1.2);
+    }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2070292438423607"
      crossorigin="anonymous"></script>
 </head>
 <body>
+  <!-- Konami Code Audio -->
+  <audio id="konamiAudio" preload="auto">
+    <source src="education-tools/konami code/all-night-by-peyruis.mp3" type="audio/mpeg">
+  </audio>
+
   <!-- Code Entry Modal -->
   <div class="code-modal" id="codeModal">
     <div class="code-box">
@@ -326,7 +363,7 @@
   <script>
     function checkCode() {
       const input = document.getElementById('codeInput');
-      const correctCode = '2323';
+      const correctCode = '2705';
       const errorMessage = document.getElementById('errorMessage');
       
       if (input.value === correctCode) {
@@ -357,6 +394,70 @@
     // Focus on the input when page loads
     window.addEventListener('load', function() {
       document.getElementById('codeInput').focus();
+    });
+
+    // Konami Code Easter Egg
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let konamiIndex = 0;
+    let rainbowActive = false;
+    let rainbowTimeout;
+
+    document.addEventListener('keydown', function(event) {
+      const key = event.key;
+      
+      // Check for Konami code keys (case-insensitive for letter keys)
+      const currentKey = (key === 'b' || key === 'B' || key === 'a' || key === 'A') ? key.toLowerCase() : key;
+      
+      if (currentKey === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+          activateRainbowMode();
+          konamiIndex = 0;
+        }
+      } else {
+        konamiIndex = 0;
+        // Check if the key matches the first key in the sequence
+        if (currentKey === konamiCode[0]) {
+          konamiIndex = 1;
+        }
+      }
+    });
+
+    function activateRainbowMode() {
+      rainbowActive = true;
+      document.body.classList.add('rainbow-mode');
+      
+      const audio = document.getElementById('konamiAudio');
+      audio.currentTime = 30; // Start from 30 seconds
+      audio.play();
+      
+      // Clear any existing timeout
+      if (rainbowTimeout) {
+        clearTimeout(rainbowTimeout);
+      }
+    }
+
+    function stopRainbowMode() {
+      if (!rainbowActive) return;
+      
+      rainbowActive = false;
+      document.body.classList.remove('rainbow-mode');
+      
+      const audio = document.getElementById('konamiAudio');
+      audio.pause();
+      
+      if (rainbowTimeout) {
+        clearTimeout(rainbowTimeout);
+      }
+    }
+
+    // Stop rainbow mode on click/touch
+    document.addEventListener('click', function() {
+      stopRainbowMode();
+    });
+
+    document.addEventListener('touchstart', function() {
+      stopRainbowMode();
     });
   </script>
 </body>
