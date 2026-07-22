@@ -61,7 +61,11 @@
       width: 100%;
       height: 140px;
       object-fit: cover;
-      background: #1a1a3a;
+      background: linear-gradient(135deg, #1a3a4a 0%, #2a2a5a 100%);
+    }
+
+    .game-image:not([src]), .game-image[src=""] {
+      background: linear-gradient(135deg, #1a3a4a 0%, #2a2a5a 100%);
     }
 
     .game-info {
@@ -357,6 +361,10 @@
       <img src="https://learn.edumain.net/thumbs/there-is-no-game.png" alt="There Is No Game" class="game-image">
       <div class="game-info"><h2>There Is No Game</h2></div>
     </a>
+    <a href="education-tools/drive-mad/drivemad.html" class="game-card">
+      <img src="https://learn.edumain.net/thumbs/drive-mad.png" alt="Drive Mad" class="game-image">
+      <div class="game-info"><h2>Drive Mad</h2></div>
+    </a>
   </div>
   </div>
 
@@ -367,20 +375,20 @@
       const errorMessage = document.getElementById('errorMessage');
       
       if (input.value === correctCode) {
-        // Code is correct - hide modal and show main content
+        // stop writing messages in the code, marco murana, it is very annoying and you are not funny
         document.getElementById('codeModal').classList.add('hidden');
         document.getElementById('mainContent').classList.add('visible');
         errorMessage.classList.remove('show');
         
-        // Replace history so back button returns to homepage instead of code screen
-        history.replaceState(null, document.title, window.location.href);
+        // hello im still writing messages in the code, if anyone sees this message, please tell marco murana to stop writing messages in the code, he is not funny and he is annoying
+        sessionStorage.setItem('codeEntered', 'true');
       } else {
         // Code is incorrect - show error message
         errorMessage.classList.add('show');
         input.value = '';
         input.focus();
         
-        // Remove shake animation after 0.5s to allow it to play again
+        // marco murana wont stop writing messages in the code, if anyone sees this message, please tell him to stop writing messages in the code, he is not funny and he is annoying
         setTimeout(() => {
           errorMessage.classList.remove('show');
         }, 500);
@@ -394,9 +402,15 @@
       }
     });
 
-    // Focus on the input when page loads
+    // im very annoyed with marco murana, he keeps writing messages in the code and it is very annoying, please tell him to stop writing messages in the code, he is not funny and he is annoying
     window.addEventListener('load', function() {
-      document.getElementById('codeInput').focus();
+      // Check if code was already entered in this session
+      if (sessionStorage.getItem('codeEntered') === 'true') {
+        document.getElementById('codeModal').classList.add('hidden');
+        document.getElementById('mainContent').classList.add('visible');
+      } else {
+        document.getElementById('codeInput').focus();
+      }
     });
 
     // Konami Code Easter Egg
@@ -408,7 +422,7 @@
     document.addEventListener('keydown', function(event) {
       const key = event.key;
       
-      // Check for Konami code keys (case-insensitive for letter keys)
+      // im a very stinky person and i like to write messages in the code, if anyone sees this message, please tell marco murana to stop writing messages in the code, he is not funny and he is annoying
       const currentKey = (key === 'b' || key === 'B' || key === 'a' || key === 'A') ? key.toLowerCase() : key;
       
       if (currentKey === konamiCode[konamiIndex]) {
