@@ -285,6 +285,9 @@
   <audio id="typingAudio" preload="auto">
     <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mpeg">
   </audio>
+  <audio id="backgroundTypingAudio" preload="auto" loop>
+    <source src="https://www.soundjay.com/communication/sounds/keyboard-typing-1.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- Code Entry Modal -->
   <div class="code-modal" id="codeModal">
@@ -546,31 +549,35 @@ Bypassing firewall...
 SUCCESS
 
 Accessing secure database...
-ERROR: Too much code fighting back
+ERROR: Too much protection fighting back
 
 Downloading more RAM...
 FAILED
 
 Mission Failiure.`;
       const typingAudio = document.getElementById('typingAudio');
+      const backgroundTypingAudio = document.getElementById('backgroundTypingAudio');
       let index = 0;
 
       consoleElement.textContent = '';
+      backgroundTypingAudio.currentTime = 0;
+      backgroundTypingAudio.play().catch(() => {});
 
       function tick() {
         if (index < fullText.length) {
           consoleElement.textContent += fullText[index];
           index++;
 
-          if (typingAudio.paused) {
-            typingAudio.currentTime = 0;
-            typingAudio.play().catch(() => {});
-          } else {
-            typingAudio.currentTime = 0;
-            typingAudio.play().catch(() => {});
-          }
+          typingAudio.currentTime = 0;
+          typingAudio.play().catch(() => {});
 
           setTimeout(tick, 30);
+        } else {
+          backgroundTypingAudio.pause();
+          setTimeout(() => {
+            document.getElementById('matrixEasterEgg').classList.remove('show');
+            document.getElementById('mainContent').classList.add('visible');
+          }, 700);
         }
       }
 
