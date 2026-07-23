@@ -197,6 +197,51 @@
       display: block;
     }
 
+    .matrix-easter-egg {
+      position: fixed;
+      inset: 0;
+      display: none;
+      background: #000;
+      color: #00ff41;
+      z-index: 100000;
+      overflow: hidden;
+      font-family: 'Courier New', monospace;
+    }
+
+    .matrix-easter-egg.show {
+      display: block;
+    }
+
+    .matrix-rain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.35;
+    }
+
+    .matrix-panel {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .matrix-console {
+      width: min(100%, 760px);
+      background: rgba(0, 0, 0, 0.82);
+      border: 2px solid #00ff41;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 0 30px rgba(0, 255, 65, 0.25);
+      white-space: pre-wrap;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
+    }
+
     /* Rainbow Effect Styles */
     @keyframes rainbow-bg {
       0% { background-color: hsl(0, 100%, 50%); }
@@ -246,6 +291,25 @@
       <input type="password" class="code-input" id="codeInput" placeholder="Enter code">
       <button class="code-submit" onclick="checkCode()">SUBMIT</button>
       <div class="error-message" id="errorMessage">Incorrect code. Try again.</div>
+    </div>
+  </div>
+
+  <div class="matrix-easter-egg" id="matrixEasterEgg">
+    <canvas class="matrix-rain" id="matrixRainCanvas"></canvas>
+    <div class="matrix-panel">
+      <pre class="matrix-console">Connecting...
+██████████ 100%
+
+Bypassing firewall...
+SUCCESS
+
+Accessing secure database...
+ERROR: Too much code fighting back
+
+Downloading more RAM...
+FAILED
+
+Mission Failiure.</pre>
     </div>
   </div>
 
@@ -413,6 +477,62 @@
       }
     });
 
+    const matrixSequence = ['m', 'a', 't', 'r', 'i', 'x'];
+    let matrixSequenceIndex = 0;
+    let matrixRainStarted = false;
+
+    function startMatrixRain() {
+      if (matrixRainStarted) return;
+      matrixRainStarted = true;
+
+      const canvas = document.getElementById('matrixRainCanvas');
+      const ctx = canvas.getContext('2d');
+      const fontSize = 18;
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      const columns = Math.floor(canvas.width / fontSize);
+      const drops = Array(columns).fill(1);
+      const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
+
+      function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#00ff41';
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars[Math.floor(Math.random() * chars.length)];
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
+          ctx.fillText(text, x, y);
+
+          if (y > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+
+      function animate() {
+        draw();
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+
+    function showMatrixEasterEgg() {
+      document.getElementById('matrixEasterEgg').classList.add('show');
+      startMatrixRain();
+    }
+
     // Konami Code Easter Egg
     const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
     let konamiIndex = 0;
@@ -428,6 +548,20 @@
       }
 
       const currentKey = (key === 'b' || key === 'B' || key === 'a' || key === 'A') ? key.toLowerCase() : key;
+
+      const typedKey = currentKey.toLowerCase();
+      if (typedKey === matrixSequence[matrixSequenceIndex]) {
+        matrixSequenceIndex++;
+        if (matrixSequenceIndex === matrixSequence.length) {
+          showMatrixEasterEgg();
+          matrixSequenceIndex = 0;
+        }
+      } else {
+        matrixSequenceIndex = 0;
+        if (typedKey === matrixSequence[0]) {
+          matrixSequenceIndex = 1;
+        }
+      }
 
       // im a very stinky person and i like to write messages in the code, if anyone sees this message, please tell marco murana to stop writing messages in the code, he is not funny and he is annoying
       if (currentKey === konamiCode[konamiIndex]) {
