@@ -895,6 +895,12 @@ Mission Failiure.`;
       const key = event.key;
       const activeElement = document.activeElement;
 
+      if (event.shiftKey && key.toLowerCase() === 'd' && !event.ctrlKey && !event.altKey && !event.metaKey) {
+        event.preventDefault();
+        openAdminConsole();
+        return;
+      }
+
       if (activeElement && ['INPUT', 'TEXTAREA', 'SELECT'].includes(activeElement.tagName)) {
         return;
       }
