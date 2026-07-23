@@ -242,6 +242,180 @@
       text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
     }
 
+    .admin-console-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.86);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200000;
+      padding: 1.5rem;
+    }
+
+    .admin-console-overlay.show {
+      display: flex;
+    }
+
+    .admin-console-window {
+      width: min(100%, 620px);
+      background: #0b0b0b;
+      border: 2px solid #00eaff;
+      border-radius: 14px;
+      box-shadow: 0 0 30px rgba(0, 234, 255, 0.25);
+      overflow: hidden;
+      font-family: 'Courier New', monospace;
+      color: #00ff88;
+    }
+
+    .admin-console-header {
+      background: linear-gradient(90deg, #001c23, #003d4b);
+      padding: 0.9rem 1rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.1rem;
+      text-transform: uppercase;
+      border-bottom: 1px solid #00eaff55;
+    }
+
+    .admin-console-body {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .admin-console-output {
+      min-height: 180px;
+      background: #000;
+      border: 1px solid #00eaff44;
+      padding: 0.9rem;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      overflow: auto;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .admin-console-input-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .admin-console-input {
+      flex: 1;
+      background: #000;
+      border: 1px solid #00eaff55;
+      color: #00ff88;
+      padding: 0.7rem 0.8rem;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+    }
+
+    .admin-console-input:focus {
+      outline: none;
+      border-color: #00ff88;
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+    }
+
+    .admin-console-btn {
+      background: linear-gradient(135deg, #00eaff, #00ff88);
+      color: #00171c;
+      border: none;
+      border-radius: 6px;
+      padding: 0.7rem 0.95rem;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: 'Courier New', monospace;
+    }
+
+    .admin-code-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 210000;
+      padding: 1.25rem;
+    }
+
+    .admin-code-modal.show {
+      display: flex;
+    }
+
+    .admin-code-box {
+      width: min(100%, 460px);
+      background: #0b1020;
+      border: 2px solid #00eaff;
+      border-radius: 14px;
+      padding: 1.2rem;
+      box-shadow: 0 0 25px rgba(0, 234, 255, 0.2);
+    }
+
+    .admin-code-box h3 {
+      color: #00eaff;
+      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    .admin-code-box label {
+      display: block;
+      margin: 0.7rem 0 0.3rem;
+      color: #8fe7ff;
+      font-size: 0.9rem;
+    }
+
+    .admin-code-box input {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 6px;
+      border: 1px solid #00eaff55;
+      background: #000;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+    }
+
+    .admin-code-box .actions {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .admin-code-box button {
+      flex: 1;
+      padding: 0.7rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+    }
+
+    .admin-code-box .primary {
+      background: linear-gradient(135deg, #00eaff, #00ff88);
+      color: #00171c;
+    }
+
+    .admin-code-box .secondary {
+      background: #222;
+      color: #fff;
+    }
+
+    .admin-code-error {
+      color: #ff6b6b;
+      margin-top: 0.7rem;
+      min-height: 1.2rem;
+      font-size: 0.9rem;
+    }
+
+    .admin-code-success {
+      color: #00ff88;
+      margin-top: 0.7rem;
+      min-height: 1.2rem;
+      font-size: 0.9rem;
+    }
+
     /* Rainbow Effect Styles */
     @keyframes rainbow-bg {
       0% { background-color: hsl(0, 100%, 50%); }
@@ -316,6 +490,35 @@ Downloading more RAM...
 FAILED
 
 Mission Failiure.</pre>
+    </div>
+  </div>
+
+  <div class="admin-console-overlay" id="adminConsoleOverlay">
+    <div class="admin-console-window">
+      <div class="admin-console-header">Administrator Console</div>
+      <div class="admin-console-body">
+        <div class="admin-console-output" id="adminConsoleOutput">Welcome to admin console.\nType: sudo admin access</div>
+        <div class="admin-console-input-row">
+          <input class="admin-console-input" id="adminConsoleInput" type="text" placeholder="Enter command" />
+          <button class="admin-console-btn" onclick="submitAdminCommand()">RUN</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-code-modal" id="adminCodeModal">
+    <div class="admin-code-box">
+      <h3>Change Website Access Code</h3>
+      <label for="adminOldCode">Old access code</label>
+      <input id="adminOldCode" type="password" />
+      <label for="adminNewCode">New access code</label>
+      <input id="adminNewCode" type="text" />
+      <div class="actions">
+        <button class="secondary" onclick="closeAdminCodeModal()">Cancel</button>
+        <button class="primary" onclick="submitCodeChange()">Update</button>
+      </div>
+      <div class="admin-code-error" id="adminCodeError"></div>
+      <div class="admin-code-success" id="adminCodeSuccess"></div>
     </div>
   </div>
 
@@ -439,30 +642,108 @@ Mission Failiure.</pre>
   </div>
 
   <script>
+    let accessCode = localStorage.getItem('websiteAccessCode') || '3674e';
+    let adminConsoleAccessGranted = false;
+
     function checkCode() {
       const input = document.getElementById('codeInput');
-      const correctCode = '3674e'; //this message was written by marco murana, if anyone sees this message, please tell him to stop writing messages in the code, he is not funny and he is annoying
       const errorMessage = document.getElementById('errorMessage');
       
-      if (input.value === correctCode) {
-        // stop writing messages in the code, marco murana, it is very annoying and you are not funny
+      if (input.value === accessCode) {
         document.getElementById('codeModal').classList.add('hidden');
         document.getElementById('mainContent').classList.add('visible');
         errorMessage.classList.remove('show');
-        
-        // hello im still writing messages in the code, if anyone sees this message, please tell marco murana to stop writing messages in the code, he is not funny and he is annoying
         sessionStorage.setItem('codeEntered', 'true');
       } else {
-        // Code is incorrect - show error message
         errorMessage.classList.add('show');
         input.value = '';
         input.focus();
-        
-        // marco murana wont stop writing messages in the code, if anyone sees this message, please tell him to stop writing messages in the code, he is not funny and he is annoying
         setTimeout(() => {
           errorMessage.classList.remove('show');
         }, 500);
       }
+    }
+
+    function appendAdminOutput(text) {
+      const output = document.getElementById('adminConsoleOutput');
+      output.textContent += (output.textContent ? '\n' : '') + text;
+      output.scrollTop = output.scrollHeight;
+    }
+
+    function openAdminConsole() {
+      document.getElementById('adminConsoleOverlay').classList.add('show');
+      document.getElementById('adminConsoleInput').focus();
+    }
+
+    function closeAdminConsole() {
+      document.getElementById('adminConsoleOverlay').classList.remove('show');
+    }
+
+    function submitAdminCommand() {
+      const input = document.getElementById('adminConsoleInput');
+      const command = input.value.trim().toLowerCase();
+      input.value = '';
+
+      if (!command) return;
+
+      if (command === 'sudo admin access') {
+        adminConsoleAccessGranted = true;
+        appendAdminOutput('> ' + command);
+        appendAdminOutput('Access granted. Type: admin code change');
+      } else if (command === 'admin code change') {
+        appendAdminOutput('> ' + command);
+        if (!adminConsoleAccessGranted) {
+          appendAdminOutput('Error: sudo admin access required.');
+          return;
+        }
+        openAdminCodeModal();
+        appendAdminOutput('Opening code change interface...');
+      } else {
+        appendAdminOutput('> ' + command);
+        appendAdminOutput('Unknown command.');
+      }
+    }
+
+    function openAdminCodeModal() {
+      const modal = document.getElementById('adminCodeModal');
+      document.getElementById('adminOldCode').value = '';
+      document.getElementById('adminNewCode').value = '';
+      document.getElementById('adminCodeError').textContent = '';
+      document.getElementById('adminCodeSuccess').textContent = '';
+      modal.classList.add('show');
+      document.getElementById('adminOldCode').focus();
+    }
+
+    function closeAdminCodeModal() {
+      document.getElementById('adminCodeModal').classList.remove('show');
+    }
+
+    function submitCodeChange() {
+      const oldCode = document.getElementById('adminOldCode').value;
+      const newCode = document.getElementById('adminNewCode').value.trim();
+      const error = document.getElementById('adminCodeError');
+      const success = document.getElementById('adminCodeSuccess');
+
+      error.textContent = '';
+      success.textContent = '';
+
+      if (!newCode) {
+        error.textContent = 'New code cannot be empty.';
+        return;
+      }
+
+      if (oldCode !== accessCode) {
+        error.textContent = 'Old access code incorrect.';
+        return;
+      }
+
+      accessCode = newCode;
+      localStorage.setItem('websiteAccessCode', accessCode);
+      success.textContent = 'Access code updated successfully.';
+      setTimeout(() => {
+        closeAdminCodeModal();
+        closeAdminConsole();
+      }, 800);
     }
 
     // Allow Enter key to submit code
@@ -472,9 +753,29 @@ Mission Failiure.</pre>
       }
     });
 
+    document.getElementById('adminConsoleInput').addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitAdminCommand();
+      }
+    });
+
+    document.getElementById('adminOldCode').addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitCodeChange();
+      }
+    });
+
+    document.getElementById('adminNewCode').addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitCodeChange();
+      }
+    });
+
     // im very annoyed with marco murana, he keeps writing messages in the code and it is very annoying, please tell him to stop writing messages in the code, he is not funny and he is annoying
     window.addEventListener('load', function() {
-      // Check if code was already entered in this session
       if (sessionStorage.getItem('codeEntered') === 'true') {
         document.getElementById('codeModal').classList.add('hidden');
         document.getElementById('mainContent').classList.add('visible');
