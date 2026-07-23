@@ -282,6 +282,9 @@
   <audio id="konamiAudio" preload="auto">
     <source src="education-tools/konami code/all-night-by-peyruis.mp3" type="audio/mpeg">
   </audio>
+  <audio id="typingAudio" preload="auto">
+    <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- Code Entry Modal -->
   <div class="code-modal" id="codeModal">
@@ -531,6 +534,47 @@ Mission Failiure.</pre>
     function showMatrixEasterEgg() {
       document.getElementById('matrixEasterEgg').classList.add('show');
       startMatrixRain();
+      typeMatrixText();
+    }
+
+    function typeMatrixText() {
+      const consoleElement = document.querySelector('.matrix-console');
+      const fullText = `Connecting...
+██████████ 100%
+
+Bypassing firewall...
+SUCCESS
+
+Accessing secure database...
+ERROR: Too much code fighting back
+
+Downloading more RAM...
+FAILED
+
+Mission Failiure.`;
+      const typingAudio = document.getElementById('typingAudio');
+      let index = 0;
+
+      consoleElement.textContent = '';
+
+      function tick() {
+        if (index < fullText.length) {
+          consoleElement.textContent += fullText[index];
+          index++;
+
+          if (typingAudio.paused) {
+            typingAudio.currentTime = 0;
+            typingAudio.play().catch(() => {});
+          } else {
+            typingAudio.currentTime = 0;
+            typingAudio.play().catch(() => {});
+          }
+
+          setTimeout(tick, 30);
+        }
+      }
+
+      tick();
     }
 
     // Konami Code Easter Egg
