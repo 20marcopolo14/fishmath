@@ -756,6 +756,11 @@ Mission Failiure.</pre>
 
       accessCode = newCode;
       localStorage.setItem('websiteAccessCode', accessCode);
+      sessionStorage.removeItem('codeEntered');
+      document.getElementById('codeModal').classList.remove('hidden');
+      document.getElementById('mainContent').classList.remove('visible');
+      document.getElementById('codeInput').value = '';
+      document.getElementById('codeInput').focus();
       success.textContent = 'Access code updated successfully.';
       setTimeout(() => {
         closeAdminCodeModal();
