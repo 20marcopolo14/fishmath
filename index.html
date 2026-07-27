@@ -687,6 +687,12 @@ Mission Failiure.</pre>
       output.scrollTop = output.scrollHeight;
     }
 
+    function appendAdminInput(text) {
+      const output = document.getElementById('adminConsoleOutput');
+      output.textContent += (output.textContent ? '\n' : '') + '> ' + text;
+      output.scrollTop = output.scrollHeight;
+    }
+
     function openAdminConsole() {
       document.getElementById('adminConsoleOverlay').classList.add('show');
       document.getElementById('adminConsoleInput').focus();
@@ -705,18 +711,17 @@ Mission Failiure.</pre>
 
       if (command === 'sudo admin access') {
         adminConsoleAccessGranted = true;
-        appendAdminOutput('> ' + command);
+        appendAdminInput(command);
         appendAdminOutput('Access granted.');
       } else if (command === 'admin code change') {
-        appendAdminOutput('> ' + command);
+        appendAdminInput(command);
         if (!adminConsoleAccessGranted) {
           appendAdminOutput('Error: sudo admin access required.');
           return;
         }
         openAdminCodeModal();
-        appendAdminOutput('Opening code change interface...');
       } else {
-        appendAdminOutput('> ' + command);
+        appendAdminInput(command);
         appendAdminOutput('Unknown command.');
       }
     }
