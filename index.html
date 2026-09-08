@@ -1,32 +1,101 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>IRON DUST // Mech Assault</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
-:root{--ink:#d9e1d4;--acid:#d7ff58;--orange:#ff7549;--cyan:#77d9ce}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#151b1b;color:var(--ink);font-family:'Barlow Condensed',sans-serif}body{cursor:crosshair}body.locked{cursor:none}#game{position:fixed;inset:0;width:100%;height:100%;display:block;background:#c17954}.grain,.scanlines{position:fixed;inset:0;pointer-events:none;z-index:3}.grain{opacity:.085;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E")}.scanlines{opacity:.12;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.12) 4px,transparent 5px);mix-blend-mode:overlay}.vignette{position:fixed;inset:0;pointer-events:none;z-index:4;box-shadow:inset 0 0 13vw 4vw rgba(0,0,0,.68)}
-.hud{position:fixed;inset:0;z-index:5;pointer-events:none;padding:clamp(18px,3vw,44px);display:flex;flex-direction:column;justify-content:space-between}.topbar,.bottom{display:flex;align-items:flex-start;justify-content:space-between;gap:22px}.brand{letter-spacing:.22em;font-weight:800;font-size:clamp(20px,2.4vw,35px);line-height:.82;text-shadow:0 2px 0 #253333}.brand span{display:block;color:var(--acid);font-size:.42em;letter-spacing:.42em;margin-top:9px}.mission{text-align:right;font:10px/1.7 'Space Mono',monospace;letter-spacing:.11em;color:#c7cbc2}.mission b{color:var(--acid);font-weight:400}.reticle{position:absolute;top:50%;left:50%;width:88px;height:88px;transform:translate(-50%,-50%)}.reticle:before,.reticle:after{content:'';position:absolute;background:rgba(215,255,88,.9);box-shadow:0 0 8px var(--acid)}.reticle:before{width:1px;height:100%;left:50%}.reticle:after{height:1px;width:100%;top:50%}.reticle i{position:absolute;inset:31px;border:1px solid var(--acid);border-radius:50%;display:block}.reticle.hit i{background:rgba(255,117,73,.65);border-color:var(--orange);transform:scale(1.7)}.readout{align-self:flex-start;min-width:210px;padding:10px 14px;border-left:2px solid var(--acid);background:linear-gradient(90deg,rgba(15,22,20,.72),transparent);font:10px/1.65 'Space Mono',monospace;letter-spacing:.05em}.readout strong{display:block;color:var(--acid);font-size:12px;letter-spacing:.16em;margin-bottom:4px}.readout em{color:var(--orange);font-style:normal}.systems{display:flex;gap:12px;align-items:flex-end}.meter{width:clamp(160px,22vw,265px);background:rgba(8,13,14,.75);border:1px solid rgba(215,255,88,.35);padding:9px 11px 11px;clip-path:polygon(0 0,95% 0,100% 28%,100% 100%,0 100%)}.meter label{display:flex;justify-content:space-between;font:700 10px 'Space Mono',monospace;color:#aab4a5;letter-spacing:.12em;margin-bottom:7px}.meter label b{color:var(--acid);font-weight:400}.bar{height:7px;background:#25302b}.bar i{display:block;height:100%;width:72%;background:var(--acid);box-shadow:0 0 10px var(--acid);transition:width .2s}.bar.heat i{background:var(--orange);box-shadow:0 0 10px var(--orange);width:12%}.weapon{text-align:right;font-weight:700;letter-spacing:.08em;font-size:clamp(24px,3vw,46px);line-height:.78;color:#f2f3de}.weapon small{display:block;color:var(--orange);font:10px 'Space Mono',monospace;letter-spacing:.18em;margin-bottom:9px}.weapon span{color:var(--acid);font-size:.55em}.controls{position:fixed;z-index:6;left:50%;bottom:20px;transform:translateX(-50%);pointer-events:auto;display:flex;gap:7px}button{border:1px solid rgba(215,255,88,.6);background:rgba(10,16,17,.86);color:var(--ink);padding:9px 12px;font:700 10px 'Space Mono',monospace;letter-spacing:.09em;cursor:pointer;clip-path:polygon(0 0,93% 0,100% 22%,100% 100%,7% 100%,0 78%)}button:hover,button.active{background:var(--acid);color:#14201b;box-shadow:0 0 18px rgba(215,255,88,.4)}.start{position:fixed;inset:0;z-index:10;display:grid;place-items:center;background:linear-gradient(135deg,rgba(13,20,20,.86),rgba(26,18,15,.42))}.start.hidden{display:none}.brief{width:min(520px,88vw);padding:clamp(28px,5vw,58px);border:1px solid rgba(215,255,88,.55);border-left:5px solid var(--acid);background:rgba(9,15,16,.9);box-shadow:30px 30px 0 rgba(4,8,8,.3)}.eyebrow{color:var(--acid);font:11px 'Space Mono',monospace;letter-spacing:.25em}h1{margin:15px 0 12px;font-size:clamp(50px,10vw,100px);line-height:.8;color:#edf0d5;text-shadow:5px 5px 0 #493f32}.brief p{max-width:390px;color:#aab5aa;line-height:1.45;margin:0 0 25px;font:11px/1.45 'Space Mono',monospace}.launch{background:var(--acid);color:#152119;padding:14px 22px;font-size:12px}.hint{margin-top:18px;font:10px/1.7 'Space Mono',monospace;color:#758078}.power{position:fixed;z-index:7;left:50%;top:21%;transform:translateX(-50%) translateY(-10px);padding:9px 16px;border:1px solid var(--acid);background:rgba(11,20,16,.9);color:var(--acid);font:700 11px 'Space Mono',monospace;letter-spacing:.13em;opacity:0;transition:.25s}.power.show{opacity:1;transform:translateX(-50%) translateY(0)}@media(max-width:600px){.mission{display:none}.hud{padding:18px}.readout{min-width:160px}.meter{width:145px}.weapon{font-size:29px}.controls{bottom:9px}button{padding:8px;font-size:9px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Message</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap');
+
+    :root {
+      --pink: #ff4fd8;
+      --cyan: #54f7ff;
+      --yellow: #fff36b;
+      --dark: #09051b;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: white;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 79, 216, .24), transparent 28%),
+        radial-gradient(circle at 80% 75%, rgba(84, 247, 255, .2), transparent 30%),
+        linear-gradient(135deg, #09051b, #180b32 48%, #061c2c);
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      inset: -50%;
+      pointer-events: none;
+      background: repeating-conic-gradient(from 0deg, rgba(255,255,255,.05) 0deg 4deg, transparent 4deg 18deg);
+      animation: spin 18s linear infinite;
+    }
+
+    body::after {
+      animation-direction: reverse;
+      animation-duration: 27s;
+      opacity: .5;
+    }
+
+    .message {
+      position: relative;
+      z-index: 1;
+      width: min(900px, 90vw);
+      padding: clamp(28px, 7vw, 76px);
+      text-align: center;
+      border: 2px solid var(--cyan);
+      background: rgba(5, 4, 23, .72);
+      box-shadow: 0 0 24px var(--cyan), inset 0 0 45px rgba(255, 79, 216, .18);
+      animation: float 3s ease-in-out infinite, borderPulse 1.8s ease-in-out infinite alternate;
+      transform: skew(-1deg);
+    }
+
+    h1, p {
+      margin: 0;
+      text-transform: none;
+      text-shadow: 0 0 8px currentColor, 3px 3px 0 rgba(255, 79, 216, .55);
+      animation: textGlitch 1.4s steps(2, end) infinite, colorShift 5s linear infinite;
+    }
+
+    h1 {
+      color: var(--yellow);
+      font-size: clamp(28px, 5.4vw, 68px);
+      line-height: 1.18;
+      letter-spacing: .08em;
+    }
+
+    p {
+      margin-top: clamp(30px, 6vw, 62px);
+      color: var(--pink);
+      font-size: clamp(14px, 2.3vw, 25px);
+      letter-spacing: .12em;
+      animation-delay: -.4s;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes float { 0%, 100% { transform: skew(-1deg) translateY(0) rotate(-.4deg); } 50% { transform: skew(1deg) translateY(-12px) rotate(.4deg); } }
+    @keyframes borderPulse { from { border-color: var(--cyan); box-shadow: 0 0 18px var(--cyan), inset 0 0 30px rgba(255, 79, 216, .15); } to { border-color: var(--pink); box-shadow: 0 0 38px var(--pink), inset 0 0 60px rgba(84, 247, 255, .2); } }
+    @keyframes textGlitch { 0%, 88%, 100% { transform: translate(0); } 90% { transform: translate(-3px, 2px); } 93% { transform: translate(4px, -2px); } 96% { transform: translate(-2px, 1px); } }
+    @keyframes colorShift { 0%, 100% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(35deg); } }
+  </style>
 </head>
 <body>
-<canvas id="game" aria-label="Iron Dust mech assault game"></canvas><div class="grain"></div><div class="scanlines"></div><div class="vignette"></div>
-<main class="hud"><div class="topbar"><div class="brand">IRON DUST<span>MECH ASSAULT // SECTOR 07</span></div><div class="mission">OPERATION <b>BLACK SUN</b><br>HOSTILES: <b id="hostiles">04</b> &nbsp;|&nbsp; DIST: <b>1.2 KM</b><br>STATUS: <b id="status">LIVE</b></div></div><div class="reticle" id="reticle"><i></i></div><div class="readout"><strong id="targetName">NO TARGET LOCK</strong><span>ARMOR SIGNATURE &nbsp;<em id="targetArmor">--</em></span><br><span>THREAT VECTOR &nbsp;&nbsp; <em id="targetVector">--</em></span></div><div class="bottom"><div class="systems"><div class="meter"><label>CHASSIS INTEGRITY <b id="hpText">72%</b></label><div class="bar"><i id="hpBar"></i></div></div><div class="meter"><label>REACTOR HEAT <b id="heatText">12%</b></label><div class="bar heat"><i id="heatBar"></i></div></div></div><div class="weapon"><small>PRIMARY // M-88 COILGUN</small><span id="ammo">08</span> / 24</div></div></main>
-<div class="power" id="power">XRAY SPECTRUM ONLINE</div><div class="controls"><button id="xrayBtn">[ X ] XRAY</button><button id="pauseBtn">[ P ] PAUSE</button></div>
-<section class="start" id="start"><div class="brief"><div class="eyebrow">PILOT LINK ESTABLISHED</div><h1>IRON<br>DUST</h1><p>Something woke beneath the salt flats. Drop into the storm, acquire the buried swarm, and keep the reactor below critical.</p><button class="launch" id="launch">ENTER THE DUST &nbsp;→</button><div class="hint">MOUSE / TOUCH TO AIM &nbsp;·&nbsp; CLICK TO FIRE<br>ARROW KEYS / WASD TO SCAN &nbsp;·&nbsp; X TO ENGAGE XRAY</div></div></section>
-<script>
-const canvas=document.getElementById('game'),ctx=canvas.getContext('2d');let W,H,dpr,running=false,paused=false,xray=false,reloading=false,reloadTimer=0,last=0,shake=0,ammo=8,heat=12,hp=72,wave=4,score=0;const maxAmmo=8,pointer={x:.5,y:.5},keys={},player={x:0,z:0,yaw:0},monsters=[],names=['DUNE STALKER','BURROWER','GLASS WRAITH','SALT TITAN'];
-function resize(){dpr=Math.min(devicePixelRatio,2);W=innerWidth;H=innerHeight;canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';ctx.setTransform(dpr,0,0,dpr,0,0)}addEventListener('resize',resize);resize();
-function spawn(){monsters.length=0;for(let i=0;i<wave;i++)monsters.push({x:(Math.random()-.5)*14,z:8+Math.random()*24,s:Math.random()*.45+.72,hp:2+Math.floor(Math.random()*3),phase:Math.random()*7,alive:true,hit:0,bob:Math.random()*5})}
-function sky(){const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#182326');g.addColorStop(.28,'#7a5a4b');g.addColorStop(.53,'#c47a55');g.addColorStop(1,'#e5a064');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(242,181,109,.26)';ctx.beginPath();ctx.arc(W*.77,H*.22,Math.min(W,H)*.12,0,7);ctx.fill();ctx.fillStyle='#423e39';ctx.beginPath();ctx.moveTo(0,H*.5);for(let i=0;i<9;i++)ctx.lineTo(W*i/8,H*(.42+Math.sin(i*1.8)*.04));ctx.lineTo(W,H*.55);ctx.lineTo(0,H*.55);ctx.fill();ctx.fillStyle='#6b4c42';ctx.beginPath();ctx.moveTo(0,H*.55);ctx.bezierCurveTo(W*.25,H*.43,W*.46,H*.62,W*.66,H*.48);ctx.bezierCurveTo(W*.8,H*.39,W*.9,H*.55,W,H*.43);ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.fill();ctx.fillStyle='#bc704f';ctx.beginPath();ctx.moveTo(0,H*.66);ctx.bezierCurveTo(W*.22,H*.48,W*.43,H*.76,W*.62,H*.59);ctx.bezierCurveTo(W*.83,H*.47,W*.91,H*.65,W,H*.54);ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.fill();ctx.strokeStyle='rgba(255,210,135,.2)';for(let i=0;i<12;i++){const y=H*.67+i*i*2.6;ctx.beginPath();ctx.moveTo(W*.2-i*60,y);ctx.lineTo(W*.9+i*70,y-25);ctx.stroke()}}
-function project(m){const dx=m.x-player.x,dz=m.z-player.z,side=dx*Math.cos(player.yaw)-dz*Math.sin(player.yaw),depth=dz*Math.cos(player.yaw)+dx*Math.sin(player.yaw);return {x:W/2+side*(W*.72)/depth,y:H*.5+(H*.22)/depth,scale:Math.min(W,H)*1.25/depth,depth}}
-function monster(m,t){if(!m.alive)return;const p=project(m);if(p.depth<=.5||p.x<-p.scale||p.x>W+p.scale)return;const x=p.x,y=p.y+Math.sin(t*.002+m.bob)*5,s=m.s*p.scale;ctx.save();ctx.translate(x,y);ctx.shadowColor=xray?'#d7ff58':'#111';ctx.shadowBlur=xray?18:22;ctx.fillStyle=xray?'rgba(61,255,217,.2)':'#242727';ctx.beginPath();ctx.ellipse(0,s*.5,s*.62,s*.24,0,0,7);ctx.fill();ctx.beginPath();ctx.moveTo(-s*.38,s*.38);ctx.lineTo(-s*.27,-s*.38);ctx.lineTo(0,-s*.62);ctx.lineTo(s*.3,-s*.34);ctx.lineTo(s*.42,s*.4);ctx.closePath();ctx.fill();ctx.strokeStyle=xray?'#77d9ce':'#111817';ctx.lineWidth=Math.max(2,s*.08);for(let i=-1;i<2;i++){ctx.beginPath();ctx.moveTo(i*s*.2,s*.1);ctx.lineTo(i*s*.4,s*.72);ctx.stroke()}ctx.fillStyle=xray?'#d7ff58':'#ff7549';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=12;ctx.beginPath();ctx.arc(-s*.17,-s*.25,s*.07,0,7);ctx.arc(s*.17,-s*.25,s*.07,0,7);ctx.fill();if(m.hit>0){ctx.strokeStyle='#fff4c7';ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,0,s*.7,0,7);ctx.stroke()}ctx.restore()}
-function updateTarget(){let best=null,dist=999;monsters.forEach(m=>{if(!m.alive)return;const p=project(m),d=Math.hypot(p.x-W/2,p.y-H/2);if(p.depth>.5&&d<dist){best=m;dist=d}});document.getElementById('targetName').textContent=best&&dist<120?names[Math.floor(best.phase)%names.length]:'NO TARGET LOCK';document.getElementById('targetArmor').textContent=best&&dist<120?Math.max(0,best.hp*25)+'%':'--';document.getElementById('targetVector').textContent=best&&dist<120?(project(best).x>W/2?'RIGHT':'LEFT'):'--'}
-function draw(t){sky();ctx.strokeStyle='rgba(255,210,135,.2)';for(let z=2;z<34;z+=2){const y=H*.53+H*.23/z;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}for(let x=-18;x<=18;x+=2){const sx=W/2+x*W/18;ctx.beginPath();ctx.moveTo(W/2+(sx-W/2)*.08,H*.51);ctx.lineTo(sx,H);ctx.stroke()}monsters.sort((a,b)=>b.z-a.z).forEach(m=>monster(m,t));if(xray){ctx.fillStyle='rgba(75,255,214,.06)';ctx.fillRect(0,0,W,H);ctx.strokeStyle='rgba(119,217,206,.2)';for(let i=0;i<W;i+=40){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,H);ctx.stroke()}}ctx.strokeStyle='rgba(255,245,195,.65)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(W*.5,H*.5);ctx.lineTo(pointer.x*W,pointer.y*H);ctx.stroke()}
-function announce(text){const p=document.getElementById('power');p.textContent=text;p.classList.add('show');setTimeout(()=>p.classList.remove('show'),1600)}
-function reload(){if(!running||paused||reloading||ammo===maxAmmo)return;reloading=true;reloadTimer=850;document.getElementById('status').textContent='RELOADING';announce('M-88 COILGUN // RELOADING')}
-function finishReload(){reloading=false;ammo=maxAmmo;document.getElementById('ammo').textContent=String(ammo).padStart(2,'0');document.getElementById('status').textContent='LIVE';announce('MAGAZINE LOCKED // READY')}
-function fire(){if(!running||paused||reloading)return;if(ammo<=0){reload();return}ammo--;heat=Math.min(100,heat+15);shake=9;document.getElementById('ammo').textContent=String(ammo).padStart(2,'0');document.getElementById('heatText').textContent=heat+'%';document.getElementById('heatBar').style.width=heat+'%';document.getElementById('reticle').classList.add('hit');setTimeout(()=>document.getElementById('reticle').classList.remove('hit'),100);let best=null,dist=999;monsters.forEach(m=>{if(!m.alive)return;const p=project(m),d=Math.hypot(p.x-W/2,p.y-H/2);if(p.depth>.5&&d<dist){dist=d;best=m}});if(best&&dist<110){best.hp--;best.hit=1;score++;if(best.hp<=0){best.alive=false;wave--;document.getElementById('hostiles').textContent=String(wave).padStart(2,'0');if(wave===0){setTimeout(()=>{wave=Math.min(8,4+Math.floor(score/5));spawn();document.getElementById('hostiles').textContent=String(wave).padStart(2,'0');announce('NEW SWARM INBOUND')},500)}}}if(ammo===0)reload();updateTarget()}
-function loop(t){const dt=Math.min(40,t-last);last=t;if(running&&!paused){if(reloading){reloadTimer-=dt;if(reloadTimer<=0)finishReload()}const speed=dt*.026;if(keys.w||keys.arrowup){player.z+=speed}if(keys.s||keys.arrowdown){player.z=Math.max(-3,player.z-speed)}if(keys.a||keys.arrowleft){player.x-=speed}if(keys.d||keys.arrowright){player.x+=speed}player.x=Math.max(-7,Math.min(7,player.x));heat=Math.max(0,heat-dt*.004);document.getElementById('heatText').textContent=Math.round(heat)+'%';document.getElementById('heatBar').style.width=heat+'%';monsters.forEach(m=>{m.hit=Math.max(0,m.hit-dt*.006);if(m.alive&&Math.random()<dt*.00006)hp=Math.max(0,hp-1)});document.getElementById('hpText').textContent=Math.round(hp)+'%';document.getElementById('hpBar').style.width=hp+'%';updateTarget()}ctx.save();if(shake){ctx.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);shake*=.82;if(shake<.2)shake=0}draw(t);ctx.restore();requestAnimationFrame(loop)}
-function start(){running=true;document.getElementById('start').classList.add('hidden');spawn();announce('LINK CONFIRMED // HUNT STARTED')}function toggleXray(){xray=!xray;document.getElementById('xrayBtn').classList.toggle('active',xray);announce(xray?'XRAY SPECTRUM ONLINE':'XRAY SPECTRUM OFFLINE')}function togglePause(){if(!running)return;paused=!paused;document.getElementById('pauseBtn').classList.toggle('active',paused);document.getElementById('status').textContent=paused?'PAUSED':'LIVE'}
-function lockView(){if(running&&!paused&&document.pointerLockElement!==canvas){const request=canvas.requestPointerLock();if(request&&request.catch)request.catch(()=>{})}}addEventListener('pointermove',e=>{if(document.pointerLockElement!==canvas){pointer.x=e.clientX/W;pointer.y=e.clientY/H}});addEventListener('mousemove',e=>{if(document.pointerLockElement===canvas){player.yaw+=e.movementX*.002;player.yaw=Math.max(-1.2,Math.min(1.2,player.yaw))}});canvas.addEventListener('click',lockView);addEventListener('pointerdown',e=>{if(e.target.tagName!=='BUTTON')fire()});addEventListener('pointerlockchange',()=>{const locked=document.pointerLockElement===canvas;document.body.classList.toggle('locked',locked);if(locked)announce('PILOT VIEW LOCKED // ESC TO RELEASE')});addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if(e.key.toLowerCase()==='r')reload();if(e.key.toLowerCase()==='x')toggleXray();if(e.key.toLowerCase()==='p')togglePause();if(e.code==='Space')fire()});addEventListener('keyup',e=>{keys[e.key.toLowerCase()]=false});document.getElementById('launch').onclick=()=>{start();lockView()};document.getElementById('xrayBtn').onclick=toggleXray;document.getElementById('pauseBtn').onclick=togglePause;requestAnimationFrame(loop);
-</script></body></html>
+  <main class="message">
+    <h1>Well this website doesnt work sooooooo.... i deleted it</h1>
+    <p>This message was written by Daniel</p>
+  </main>
+</body>
+</html>
