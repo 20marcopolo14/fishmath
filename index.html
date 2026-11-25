@@ -1,101 +1,39 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Website Message</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap');
-
-    :root {
-      --pink: #ff4fd8;
-      --cyan: #54f7ff;
-      --yellow: #fff36b;
-      --dark: #09051b;
-    }
-
-    * { box-sizing: border-box; }
-
-    html, body {
-      margin: 0;
-      min-height: 100%;
-    }
-
-    body {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      color: white;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255, 79, 216, .24), transparent 28%),
-        radial-gradient(circle at 80% 75%, rgba(84, 247, 255, .2), transparent 30%),
-        linear-gradient(135deg, #09051b, #180b32 48%, #061c2c);
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    body::before,
-    body::after {
-      content: '';
-      position: fixed;
-      inset: -50%;
-      pointer-events: none;
-      background: repeating-conic-gradient(from 0deg, rgba(255,255,255,.05) 0deg 4deg, transparent 4deg 18deg);
-      animation: spin 18s linear infinite;
-    }
-
-    body::after {
-      animation-direction: reverse;
-      animation-duration: 27s;
-      opacity: .5;
-    }
-
-    .message {
-      position: relative;
-      z-index: 1;
-      width: min(900px, 90vw);
-      padding: clamp(28px, 7vw, 76px);
-      text-align: center;
-      border: 2px solid var(--cyan);
-      background: rgba(5, 4, 23, .72);
-      box-shadow: 0 0 24px var(--cyan), inset 0 0 45px rgba(255, 79, 216, .18);
-      animation: float 3s ease-in-out infinite, borderPulse 1.8s ease-in-out infinite alternate;
-      transform: skew(-1deg);
-    }
-
-    h1, p {
-      margin: 0;
-      text-transform: none;
-      text-shadow: 0 0 8px currentColor, 3px 3px 0 rgba(255, 79, 216, .55);
-      animation: textGlitch 1.4s steps(2, end) infinite, colorShift 5s linear infinite;
-    }
-
-    h1 {
-      color: var(--yellow);
-      font-size: clamp(28px, 5.4vw, 68px);
-      line-height: 1.18;
-      letter-spacing: .08em;
-    }
-
-    p {
-      margin-top: clamp(30px, 6vw, 62px);
-      color: var(--pink);
-      font-size: clamp(14px, 2.3vw, 25px);
-      letter-spacing: .12em;
-      animation-delay: -.4s;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes float { 0%, 100% { transform: skew(-1deg) translateY(0) rotate(-.4deg); } 50% { transform: skew(1deg) translateY(-12px) rotate(.4deg); } }
-    @keyframes borderPulse { from { border-color: var(--cyan); box-shadow: 0 0 18px var(--cyan), inset 0 0 30px rgba(255, 79, 216, .15); } to { border-color: var(--pink); box-shadow: 0 0 38px var(--pink), inset 0 0 60px rgba(84, 247, 255, .2); } }
-    @keyframes textGlitch { 0%, 88%, 100% { transform: translate(0); } 90% { transform: translate(-3px, 2px); } 93% { transform: translate(4px, -2px); } 96% { transform: translate(-2px, 1px); } }
-    @keyframes colorShift { 0%, 100% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(35deg); } }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Twenty // Arcade</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;700&family=Space+Grotesk:wght@700&display=swap');
+:root{--ink:#172a3a;--paper:#f5eddf;--coral:#ef6f61;--mint:#a8d5ba;--blue:#257c8c;--yellow:#f4c95d}*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--ink);background:var(--paper);font-family:'DM Mono',monospace}body:before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.25;background-image:radial-gradient(var(--ink) .7px,transparent .7px);background-size:13px 13px}[hidden]{display:none!important}button,input{font:inherit}button{cursor:pointer}.gate,.app{width:min(1240px,100%);margin:auto;padding:34px 22px 50px}.gate{min-height:100vh;display:grid;place-items:center}.gate-card{width:min(620px,100%);padding:clamp(28px,8vw,72px);border:3px solid var(--ink);background:var(--mint);box-shadow:14px 14px 0 var(--coral)}.label{margin:0 0 18px;color:var(--blue);font-size:12px;letter-spacing:.2em}.gate h1,.topbar h1{margin:0;font-family:'Space Grotesk',sans-serif;font-size:clamp(50px,10vw,100px);line-height:.85;letter-spacing:-.08em}.gate p{line-height:1.6}.gate-form{display:flex;gap:10px;margin-top:28px}input{min-width:0;flex:1;border:2px solid var(--ink);padding:13px 14px;color:var(--ink);background:var(--paper);outline:0}.primary{border:2px solid var(--ink);padding:12px 16px;color:var(--paper);background:var(--ink);font-weight:700}.primary:hover{background:var(--coral)}.error{min-height:20px;color:#a23028;font-size:12px}.topbar{display:flex;justify-content:space-between;align-items:end;gap:20px;padding-bottom:28px;border-bottom:3px solid var(--ink)}.topbar p{margin:8px 0;font-size:13px}.status{text-align:right;font-size:12px;line-height:1.7}.status strong{color:var(--coral)}.games{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}.game-card{min-height:150px;display:flex;flex-direction:column;justify-content:space-between;padding:18px;border:2px solid var(--ink);background:rgba(168,213,186,.55);text-align:left;transition:.15s}.game-card:hover{transform:translate(-3px,-3px);background:var(--yellow);box-shadow:5px 5px 0 var(--coral)}.game-card h2{margin:10px 0;font-size:19px}.game-card small,.play{color:var(--blue)}.play{font-size:11px;font-weight:700}.modal{position:fixed;inset:0;z-index:3;display:grid;place-items:center;padding:20px;background:#172a3acc}.panel{width:min(720px,100%);max-height:90vh;overflow:auto;padding:26px;border:3px solid var(--ink);background:var(--paper);box-shadow:12px 12px 0 var(--coral)}.panel-head{display:flex;justify-content:space-between;gap:20px}.panel h2{margin:0;font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,6vw,48px);line-height:.9}.close{border:0;color:var(--ink);background:transparent;font-size:26px}.stage{min-height:260px;display:grid;place-items:center;margin-top:24px;padding:22px;border:2px dashed var(--blue);background:#a8d5ba4d;text-align:center}.stage button{margin:6px;border:2px solid var(--ink);padding:10px 14px;color:var(--paper);background:var(--blue)}.stage button:hover{background:var(--coral)}.readout{width:100%;margin:0 0 16px;line-height:1.6}.target{position:relative;width:min(100%,520px);height:220px;border:2px solid var(--ink);background:var(--mint)}.target button{position:absolute;width:44px;height:44px;margin:0;padding:0;border-radius:50%;background:var(--coral)}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;width:min(350px,100%)}.grid button{aspect-ratio:1;margin:0}.board{display:grid;grid-template-columns:repeat(3,70px);gap:7px}.board button{width:70px;height:70px;margin:0;font-size:28px}.admin-panel form{display:grid;gap:12px;margin-top:20px}.admin-panel label{font-size:12px}.admin-panel input{width:100%;margin-top:5px}@media(max-width:900px){.games{grid-template-columns:repeat(3,1fr)}}@media(max-width:620px){.games{grid-template-columns:repeat(2,1fr)}.topbar{align-items:start;flex-direction:column}.status{text-align:left}.gate-form{flex-direction:column}}@media(max-width:380px){.games{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-  <main class="message">
-    <h1>Well this website doesnt work sooooooo.... i deleted it</h1>
-    <p>This message was written by Daniel</p>
-  </main>
-</body>
-</html>
+<main id="gate" class="gate"><section class="gate-card"><p class="label">PRIVATE ARCADE // ACCESS REQUIRED</p><h1>TWENTY</h1><p>One code. Twenty small games. No leaderboard, no noise.</p><form id="gate-form" class="gate-form"><input id="access-code" autocomplete="off" placeholder="enter access code" aria-label="Access code"><button class="primary">UNLOCK</button></form><p id="gate-error" class="error"></p></section></main>
+<main id="app" class="app" hidden><header class="topbar"><div><p class="label">ACCESS GRANTED // LOCAL ARCADE</p><h1>TWENTY</h1><p>Pick a game and make a little trouble.</p></div><div class="status">CODE STATUS<br><strong>ACTIVE</strong><br>Shift + D for admin</div></header><section id="games" class="games"></section></main>
+<div id="game-modal" class="modal" hidden><section class="panel"><div class="panel-head"><div><p id="game-number" class="label"></p><h2 id="game-title"></h2></div><button id="close-game" class="close">x</button></div><div id="stage" class="stage"></div></section></div>
+<div id="admin-modal" class="modal" hidden><section class="panel admin-panel"><div class="panel-head"><div><p class="label">ADMIN CONSOLE</p><h2>CODE CHANGE</h2></div><button id="close-admin" class="close">x</button></div><form id="admin-form"><label>ACCESS PHRASE<input name="access" required></label><label>COMMAND<input name="command" required></label><label>OLD WEBSITE CODE<input name="oldCode" required></label><label>NEW WEBSITE CODE<input name="newCode" required></label><button class="primary">SUBMIT CHANGE</button><p id="admin-message" class="error"></p></form></section></div>
+<script>
+const names=['Click Rush','Reaction','Dodge','Snake','Memory','Tic Tac Toe','Pong','Breakout','Whack-a-Mole','Typing Test','Number Guess','Lights Out','Simon','Math Sprint','Avoid Red','Connect Four','Minesweeper','Flappy Dot','Color Match','Hangman'];let code=localStorage.getItem('twenty-code')||'3674e',clean=()=>{};const keys=new Set(),$=s=>document.querySelector(s),stage=$('#stage');document.addEventListener('keydown',e=>keys.add(e.code));document.addEventListener('keyup',e=>keys.delete(e.code));
+names.forEach((name,i)=>{const b=document.createElement('button');b.className='game-card';b.innerHTML=`<small>${String(i+1).padStart(2,'0')} / 20</small><h2>${name}</h2><span class="play">PLAY -></span>`;b.onclick=()=>open(i);$('#games').append(b)});
+$('#gate-form').onsubmit=e=>{e.preventDefault();if($('#access-code').value.trim()===code){$('#gate').hidden=true;$('#app').hidden=false}else $('#gate-error').textContent='That code did not open the arcade.'};$('#close-game').onclick=close;$('#game-modal').onclick=e=>{if(e.target.id==='game-modal')close()};function close(){clean();$('#game-modal').hidden=true;stage.replaceChildren()};function text(s){const p=document.createElement('p');p.className='readout';p.textContent=s;stage.append(p);return p}function add(s,fn){const b=document.createElement('button');b.textContent=s;b.onclick=fn;stage.append(b);return b}function open(i){clean();stage.replaceChildren();$('#game-number').textContent=`${String(i+1).padStart(2,'0')} / 20`;$('#game-title').textContent=names[i];$('#game-modal').hidden=false;clean=launch(i)||(()=>{})}
+function launch(i){if([0,2,8,14].includes(i))return target(i);if(i===1)return reaction();if(i===3)return snake();if(i===4)return memory();if(i===5)return tic();if(i===6)return pong();if(i===7)return breakout();if(i===9)return typing();if(i===10)return guess();if(i===11)return lights();if(i===12)return sequence();if(i===13)return math();if(i===15)return connectFour();if(i===16)return grid('Minesweeper','Find the safe square.',16,'?');if(i===17)return flappy();if(i===18)return colors();return hangman()}
+function target(i){let n=0,p=text(i===17?'Click FLAP to reach 10.':i===14?'Click blue. Avoid red.':'Click the target 10 times.'),a=document.createElement('div');a.className='target';stage.append(a);let b=document.createElement('button');a.append(b);let move=()=>{b.style.left=Math.random()*88+'%';b.style.top=Math.random()*75+'%';b.style.background=i===14?(Math.random()>.3?'var(--blue)':'var(--coral)'):'var(--coral)'};b.onclick=()=>{if(i===14&&b.style.background.includes('coral')){p.textContent='Red hit. Game over.';b.disabled=true}else{n++;p.textContent=i===0?n+' clicks':n+' / 10';if(n>=(i===0?20:10)){p.textContent='You win.';b.disabled=true}move()}};move();return()=>{}}
+function reaction(){let timer,p=text('Wait for green, then click.'),b=add('GET READY',()=>{if(b.dataset.ready){p.textContent=`Reaction: ${Math.round(performance.now()-b.dataset.start)} ms`;b.dataset.ready='';setTimeout(arm,700)}else p.textContent='Too soon.'});function arm(){b.textContent='WAIT';timer=setTimeout(()=>{b.dataset.ready=1;b.dataset.start=performance.now();b.textContent='CLICK'},1000+Math.random()*1800)}arm();return()=>clearTimeout(timer)}
+function grid(title,intro,n,mark){let next=0,p=text(intro),g=document.createElement('div');g.className='grid';stage.append(g);for(let i=0;i<n;i++){let b=document.createElement('button');b.textContent=mark==='âœ“'?'?':mark;b.onclick=()=>{if(i===next){b.textContent=mark;next++;p.textContent=next===n?'You win.':`${next} / ${n}`}else p.textContent='That is not the next move.'};g.append(b)}return()=>{}}
+function memory(){let p=text('Find every matching pair.'),v=['A','A','B','B','C','C','D','D'].sort(()=>Math.random()-.5),g=document.createElement('div'),pick=[],found=0;g.className='grid';stage.append(g);v.forEach(x=>{let b=document.createElement('button');b.textContent='?';b.onclick=()=>{if(b.textContent!=='?')return;b.textContent=x;pick.push(b);if(pick.length===2){if(pick[0].textContent===pick[1].textContent){found++;pick=[];if(found===4)p.textContent='Memory complete.'}else setTimeout(()=>{pick.forEach(z=>z.textContent='?');pick=[]},500)}};g.append(b)});return()=>{}}
+function tic(){let p=text('You are X.'),a=Array(9).fill(''),g=document.createElement('div');g.className='board';stage.append(g);let turn='X',win=()=>[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].some(([x,y,z])=>a[x]&&a[x]===a[y]&&a[x]===a[z]);a.forEach((_,i)=>{let b=document.createElement('button');b.onclick=()=>{if(a[i]||win())return;a[i]=turn;b.textContent=turn;if(win())p.textContent=turn+' wins.';else{turn=turn==='X'?'O':'X';p.textContent=turn+"'s turn."}};g.append(b)});return()=>{}}
+function canvasBoard(){let c=document.createElement('canvas');c.width=640;c.height=360;c.className='game-canvas';stage.append(c);return[c,c.getContext('2d')]}
+function snake(){let[c,x]=canvasBoard(),p=text('Arrow keys move. Eat the yellow square.'),body=[{x:8,y:5},{x:7,y:5},{x:6,y:5}],dir={x:1,y:0},next=dir,food={x:14,y:7},timer;function draw(){x.fillStyle='#257c8c';x.fillRect(0,0,640,360);x.fillStyle='#f4c95d';x.fillRect(food.x*32+4,food.y*32+4,24,24);x.fillStyle='#f5eddf';body.forEach((b,i)=>x.fillRect(b.x*32+4,b.y*32+4,24,24));}function step(){dir=next;let head={x:body[0].x+dir.x,y:body[0].y+dir.y};if(head.x<0||head.x>=20||head.y<0||head.y>=11||body.some(b=>b.x===head.x&&b.y===head.y)){p.textContent='Game over. Press R to restart.';clearInterval(timer);return}body.unshift(head);if(head.x===food.x&&head.y===food.y){p.textContent=`Score ${body.length-3}`;do{food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*11)}}while(body.some(b=>b.x===food.x&&b.y===food.y))}else body.pop();draw()}function key(e){if(e.key==='ArrowUp'&&dir.y!==1)next={x:0,y:-1};if(e.key==='ArrowDown'&&dir.y!==-1)next={x:0,y:1};if(e.key==='ArrowLeft'&&dir.x!==1)next={x:-1,y:0};if(e.key==='ArrowRight'&&dir.x!==-1)next={x:1,y:0}}document.addEventListener('keydown',key);draw();timer=setInterval(step,130);return()=>{clearInterval(timer);document.removeEventListener('keydown',key)}}
+function pong(){let[c,x]=canvasBoard(),p=text('W/S or arrow keys move your paddle.'),left=150,right=150,ball={x:320,y:180,dx:5,dy:3},timer;function draw(){x.fillStyle='#257c8c';x.fillRect(0,0,640,360);x.fillStyle='#a8d5ba';x.fillRect(318,0,4,360);x.fillStyle='#f5eddf';x.fillRect(24,left,14,70);x.fillRect(602,right,14,70);x.fillRect(ball.x-8,ball.y-8,16,16)}function step(){if(keys.has('ArrowUp')||keys.has('KeyW'))left=Math.max(0,left-6);if(keys.has('ArrowDown')||keys.has('KeyS'))left=Math.min(290,left+6);right+=((ball.y-35)-right)*.08;ball.x+=ball.dx;ball.y+=ball.dy;if(ball.y<8||ball.y>352)ball.dy*=-1;if(ball.x<40&&ball.x>24&&ball.y>left&&ball.y<left+70)ball.dx=Math.abs(ball.dx)+.2;if(ball.x>600&&ball.x<616&&ball.y>right&&ball.y<right+70)ball.dx=-Math.abs(ball.dx)-.2;if(ball.x<0){p.textContent='Computer scores. Press R to restart.';clearInterval(timer)}if(ball.x>640){p.textContent='You score!';ball={x:320,y:180,dx:-5,dy:3}}draw()}function key(e){if(e.key.toLowerCase()==='r'){ball={x:320,y:180,dx:5,dy:3};timer=setInterval(step,16)}}document.addEventListener('keydown',key);timer=setInterval(step,16);return()=>{clearInterval(timer);document.removeEventListener('keydown',key)}}
+function breakout(){let[c,x]=canvasBoard(),p=text('Move with arrows. Break all the bricks.'),paddle=270,ball={x:320,y:300,dx:4,dy:-4},bricks=Array.from({length:24},(_,i)=>({x:(i%8)*78+8,y:35+Math.floor(i/8)*28,alive:true})),timer;function draw(){x.fillStyle='#257c8c';x.fillRect(0,0,640,360);x.fillStyle='#f4c95d';bricks.filter(b=>b.alive).forEach(b=>x.fillRect(b.x,b.y,68,20));x.fillStyle='#f5eddf';x.fillRect(paddle,335,100,12);x.fillRect(ball.x-7,ball.y-7,14,14)}function step(){if(keys.has('ArrowLeft'))paddle=Math.max(0,paddle-7);if(keys.has('ArrowRight'))paddle=Math.min(540,paddle+7);ball.x+=ball.dx;ball.y+=ball.dy;if(ball.x<7||ball.x>633)ball.dx*=-1;if(ball.y<7)ball.dy*=-1;if(ball.y>325&&ball.x>paddle&&ball.x<paddle+100)ball.dy=-Math.abs(ball.dy);bricks.forEach(b=>{if(b.alive&&ball.x>b.x&&ball.x<b.x+68&&ball.y>b.y&&ball.y<b.y+20){b.alive=false;ball.dy*=-1}});if(!bricks.some(b=>b.alive)){p.textContent='You cleared the board!';clearInterval(timer)}if(ball.y>360){p.textContent='Game over. Press R.';clearInterval(timer)}draw()}function key(e){if(e.key.toLowerCase()==='r'){bricks.forEach(b=>b.alive=true);ball={x:320,y:300,dx:4,dy:-4};timer=setInterval(step,16)}}document.addEventListener('keydown',key);timer=setInterval(step,16);return()=>{clearInterval(timer);document.removeEventListener('keydown',key)}}
+function connectFour(){let p=text('Click a column. Four in a row wins.'),board=Array(42).fill(''),turn='X',g=document.createElement('div');g.className='grid';g.style.gridTemplateColumns='repeat(7,1fr)';stage.append(g);function win(){for(let r=0;r<6;r++)for(let c=0;c<7;c++){let i=r*7+c;if(c<4&&board[i]&&board[i]===board[i+1]&&board[i]===board[i+2]&&board[i]===board[i+3])return true;if(r<3&&board[i]&&board[i]===board[i+7]&&board[i]===board[i+14]&&board[i]===board[i+21])return true}return false}for(let i=0;i<42;i++){let b=document.createElement('button');b.textContent='.';b.onclick=()=>{let c=i%7,slot=[35+c,28+c,21+c,14+c,7+c,c].find(n=>!board[n]);if(slot===undefined)return;board[slot]=turn;g.children[slot].textContent=turn;if(win())p.textContent=turn+' wins!';else{turn=turn==='X'?'O':'X';p.textContent=turn+"'s turn."}};g.append(b)}}
+function flappy(){let[c,x]=canvasBoard(),p=text('Press Space or click to flap. Reach 10.'),bird={x:120,y:180,vy:0},pipes=[{x:640,gap:150}],score=0,timer;function draw(){x.fillStyle='#a8d5ba';x.fillRect(0,0,640,360);x.fillStyle='#257c8c';pipes.forEach(q=>{x.fillRect(q.x,0,42,q.gap);x.fillRect(q.x,q.gap+105,42,360)});x.fillStyle='#ef6f61';x.fillRect(bird.x,bird.y,22,22)}function flap(){bird.vy=-7}function step(){bird.vy+=.35;bird.y+=bird.vy;pipes.forEach(q=>q.x-=3);if(pipes[pipes.length-1].x<390)pipes.push({x:640,gap:70+Math.random()*150});if(pipes[0].x<-50)pipes.shift();let hit=bird.y<0||bird.y>338||pipes.some(q=>bird.x+22>q.x&&bird.x<q.x+42&&(bird.y<q.gap||bird.y+22>q.gap+105));if(hit){p.textContent=`Game over at ${score}. Press R.`;clearInterval(timer)}pipes.forEach(q=>{if(q.x===117)score++});p.textContent=score>=10?'You win!':`Score ${score}`;draw()}function key(e){if(e.code==='Space'){e.preventDefault();flap()}if(e.key.toLowerCase()==='r'){bird={x:120,y:180,vy:0};timer=setInterval(step,16)}}c.onclick=flap;document.addEventListener('keydown',key);timer=setInterval(step,16);draw();return()=>{clearInterval(timer);document.removeEventListener('keydown',key)}}
+function typing(){let w=['orbit','cobalt','lantern','pixel'],i=0,p=text('Type the word, then press Enter.'),x=document.createElement('input');x.placeholder=w[0];stage.append(x);let fn=e=>{if(e.key==='Enter'){if(x.value===w[i]){i++;x.value='';if(i===w.length)p.textContent='Perfect typing.';else x.placeholder=w[i]}else p.textContent='Try again.'}};x.onkeydown=fn;x.focus();return()=>x.removeEventListener('keydown',fn)}
+function guess(){let ans=Math.ceil(Math.random()*50),p=text('Guess a number from 1 to 50.'),x=document.createElement('input');x.type='number';stage.append(x);add('GUESS',()=>{let n=+x.value;p.textContent=n===ans?'Correct!':n<ans?'Higher.':'Lower.'});return()=>{}}
+function lights(){let a=Array(9).fill(true),p=text('Turn every light off.'),g=document.createElement('div');g.className='board';stage.append(g);function draw(){g.replaceChildren();a.forEach((on,i)=>{let b=document.createElement('button');b.textContent=on?'â—':'â—‹';b.style.background=on?'var(--yellow)':'var(--blue)';b.onclick=()=>{[i,i-3,i+3,i-1,i+1].forEach(n=>{if(n>=0&&n<9&&!(i%3===0&&n===i-1)&&!(i%3===2&&n===i+1))a[n]=!a[n]});draw();if(a.every(x=>!x))p.textContent='Lights out.'};g.append(b)})}draw();return()=>{}}
+function sequence(){let n=1,p=text('Click the buttons in order.'),g=document.createElement('div');g.className='grid';stage.append(g);[1,2,3,4].sort(()=>Math.random()-.5).forEach(x=>{let b=add(x,()=>{if(x===n){n++;b.disabled=true;p.textContent=n===5?'Complete.':'Next: '+n}else p.textContent='Wrong button.'});g.append(b);});return()=>{}}
+function math(){let a,b,p=text('Solve sums. Press Enter.'),q=document.createElement('h3'),x=document.createElement('input');stage.append(q,x);function next(){a=Math.ceil(Math.random()*20);b=Math.ceil(Math.random()*20);q.textContent=`${a} + ${b} = ?`;x.value=''}x.onkeydown=e=>{if(e.key==='Enter')Number(x.value)===a+b?(p.textContent='Correct!',next()):p.textContent='Try again.'};next();x.focus();return()=>{}}
+function colors(){let p=text('Click the named color.'),labels=['CORAL','BLUE','YELLOW','MINT'],g=document.createElement('div');g.className='grid';stage.append(g);function draw(){let n=Math.floor(Math.random()*4);p.textContent=labels[n];g.replaceChildren();labels.forEach((x,i)=>{let b=add(x,()=>{p.textContent=i===n?'Correct!':'Miss.';draw()});b.style.background=['var(--coral)','var(--blue)','var(--yellow)','var(--mint)'][i];g.append(b)})}draw();return()=>{}}
+function hangman(){let word='CODE',p=text('Guess the four-letter word.'),g=document.createElement('div');g.className='grid';stage.append(g);let guessed='';[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].forEach(x=>{let b=add(x,()=>{guessed+=x;b.disabled=true;let shown=[...word].map(c=>guessed.includes(c)?c:'_').join(' ');p.textContent=shown==='C O D E'?'Solved!':shown});g.append(b)});return()=>{}}
+document.onkeydown=e=>{if(e.shiftKey&&e.code==='KeyD'){e.preventDefault();$('#admin-modal').hidden=false;$('#admin-form').reset();$('#admin-message').textContent=''}};$('#close-admin').onclick=()=>$('#admin-modal').hidden=true;$('#admin-form').onsubmit=e=>{e.preventDefault();let d=new FormData(e.target),p=$('#admin-message');if(d.get('access')!=='sudo admin access')return p.textContent='Access phrase rejected.';if(d.get('command')!=='admin code change')return p.textContent='Command rejected.';if(d.get('oldCode')!==code)return p.textContent='Old code does not match.';if(!d.get('newCode'))return p.textContent='Enter a new code.';code=d.get('newCode');localStorage.setItem('twenty-code',code);p.style.color='var(--blue)';p.textContent='Code updated across open instances.';e.target.reset()};addEventListener('storage',e=>{if(e.key==='twenty-code'&&e.newValue)code=e.newValue});
+</script></body></html>
